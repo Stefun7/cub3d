@@ -6,7 +6,7 @@
 /*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:24:28 by stephen           #+#    #+#             */
-/*   Updated: 2025/11/12 14:53:51 by stephen          ###   ########.fr       */
+/*   Updated: 2025/11/14 14:57:28 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	main(int ac, char **av)
 {
 	t_gamestruc	game;
 
-	verifarg(ac, av);
+	verif_args(ac, av);
 	set_check_map(&game, av[1]);
+	return(0);
 
 }
