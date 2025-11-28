@@ -6,7 +6,7 @@
 /*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:20:26 by stephen           #+#    #+#             */
-/*   Updated: 2025/11/26 15:23:22 by stephen          ###   ########.fr       */
+/*   Updated: 2025/11/28 15:26:55 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@
 # define ALL_SET 11
 # define NONE -1
 
-typedef struct s_color
-{
-	int	R;
-	int	G;
-	int	B;
-}				t_color;
+// typedef struct s_color
+// {
+// 	int	R;
+// 	int	G;
+// 	int	B;
+// }				t_color;
 
 typedef struct s_img
 {
@@ -42,8 +42,10 @@ typedef struct s_texturepack
 	t_img		*SO;
 	t_img		*WE;
 	t_img		*EA;
-	t_color		*F;
-	t_color		*C;
+	int			F_RGB[3];
+	int			C_RGB[3];
+	//To convert to MLX color:
+	//int color = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
 
 }				t_texturepack;
 
@@ -73,7 +75,8 @@ void	set_check_map(t_gamestruc	*game, char *av_1);
 //utils
 int	open_fd(char *file);
 int	skip_spaces(char *input, size_t *index);
-void	set_color(t_color 	*color, char *line);
+void	set_color(int	RGB[3], char *line);
+int	int_in_col(char *line, size_t *index, int *col);
 
 char	*get_path_texture(char *line);
 

@@ -6,7 +6,7 @@
 /*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 19:40:30 by stephen           #+#    #+#             */
-/*   Updated: 2025/11/26 15:19:57 by stephen          ###   ########.fr       */
+/*   Updated: 2025/11/28 15:26:14 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int set_type_id(t_texturepack	*t, char *line)
 {
 	char *trim;
 
-	if(t->C && t->F && t->NO->path && t->SO->path && t->WE->path && t->EA->path)
+	if(t->F_RGB[0] != NONE && t->C_RGB[0] != NONE && t->NO->path && t->SO->path && t->WE->path && t->EA->path)
 		return(ALL_SET);
 	trim = line;
 	while(*trim == ' ' || *trim == '\t')
@@ -31,10 +31,10 @@ int set_type_id(t_texturepack	*t, char *line)
 		t->WE->path = get_path_texture(trim + 2);
 	else if(ft_strncmp(trim, "EA", 2) == 0)
 		t->EA->path = get_path_texture(trim + 2);
-	// else if(*trim == 'F')
-	// 	t->F = get_color(trim + 1);
-	// else if(*trim == 'C')
-	// 	t->C = get_color(trim + 1);
+	else if(*trim == 'F')
+		set_color(t->F_RGB, trim + 1);
+	else if(*trim == 'C')
+		set_color(t->C_RGB, trim + 1);
 	else
 		return(1);
 	return(0);
@@ -58,12 +58,12 @@ void	init_img(t_texturepack	*all_textures)
 	all_textures->EA->ptr = NULL;
 	all_textures->EA->x = 0;
 	all_textures->EA->y = 0;
-	all_textures->C->R = NONE;
-	all_textures->C->G = NONE;
-	all_textures->C->B = NONE;
-	all_textures->F->R = NONE;
-	all_textures->F->G = NONE;
-	all_textures->F->B = NONE;
+	all_textures->F_RGB[0] = NONE;
+	all_textures->C_RGB[0] = NONE;
+	all_textures->F_RGB[1] = NONE;
+	all_textures->C_RGB[1] = NONE;
+	all_textures->F_RGB[2] = NONE;
+	all_textures->C_RGB[2] = NONE;
 
 }
 
@@ -73,11 +73,10 @@ void	init_texture(t_texturepack	*all_textures)
 	all_textures->SO = malloc(sizeof(t_img));
 	all_textures->WE = malloc(sizeof(t_img));
 	all_textures->EA = malloc(sizeof(t_img));
-	all_textures->F = malloc(sizeof(t_color));
-	all_textures->C = malloc(sizeof(t_color));
+
 	//maybe secure
 	if (!all_textures->NO || !all_textures->SO || !all_textures->WE ||
-	!all_textures->EA || !all_textures->F || !all_textures->C)
+	!all_textures->EA)
 		exit_game("Error\nMalloc failed", NULL);
 	init_img(all_textures);
 }

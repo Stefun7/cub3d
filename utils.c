@@ -55,7 +55,7 @@ char	*get_path_texture(char *line)
 	return(path);
 }
 
-void	set_color(t_color 	*color, char *line)
+void	set_color(int	RGB[3], char *line)
 {
 	size_t	index;
 	size_t	end;
@@ -68,25 +68,16 @@ void	set_color(t_color 	*color, char *line)
 	{
 		if(!skip_spaces(line, &index))
 			return;
-		end = index;
-		while(ft_isdigit(line[end]))
-			end++;
-		col_c = ft_substr(line, index, end - index);
-		if(i == 0)
-			color->R = ft_atoi(col_c);
-		else if(i == 1)
-			color->G = ft_atoi(col_c);
-		else if(i == 2)
-			color->B = ft_atoi(col_c);
+		if(!int_in_col(line, &index, &RGB[i]))
+			return;
 		skip_spaces(line, &index);
-		if(line[index] != ',')
-			color->R = NONE;
-		index = end;
+		if(line[index] != ',' && i != 2)
+			return;
 		i++;
 	}
 	skip_spaces(line, &index);
 	if(line[index] != '\0' && line[index] != '\n')
-		color->R = NONE;
+		RGB[i] = NONE;
 }
 
 int	skip_spaces(char *input, size_t *index)
