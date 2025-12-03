@@ -6,7 +6,7 @@
 /*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:20:26 by stephen           #+#    #+#             */
-/*   Updated: 2025/11/28 15:26:55 by stephen          ###   ########.fr       */
+/*   Updated: 2025/12/02 01:48:27 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,10 @@ int	int_in_col(char *line, size_t *index, int *col);
 char	*get_path_texture(char *line);
 
 void	exit_game(char *error_message, t_gamestruc *game);
+
+
+//free
+void	free_all(t_gamestruc *game);
 
 //debug
 void	print_texture(t_texturepack	all_textures);

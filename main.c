@@ -6,7 +6,7 @@
 /*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:24:28 by stephen           #+#    #+#             */
-/*   Updated: 2025/11/14 14:57:28 by stephen          ###   ########.fr       */
+/*   Updated: 2025/12/02 01:48:36 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	main(int ac, char **av)
 
 	verif_args(ac, av);
 	set_check_map(&game, av[1]);
+	free_all(&game);
 	return(0);
 
 }

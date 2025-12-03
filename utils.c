@@ -26,6 +26,8 @@ int	open_fd(char *file)
 void	exit_game(char *error_message, t_gamestruc *game)
 {
 	printf("%s\n", error_message);
+	if(game)
+		free_all(game);
 	exit(1);
 }
 
@@ -58,34 +60,43 @@ char	*get_path_texture(char *line)
 void	set_color(int	RGB[3], char *line)
 {
 	size_t	index;
-	size_t	end;
-	char 	*col_c;
 	int i;
 
 	index = 0;
 	i = 0;
+	if(*line != ' ' && *line != '\t')
+		return;
 	while(i < 3)
 	{
-		if(!skip_spaces(line, &index))
-			return;
+		skip_spaces(line, &index);
 		if(!int_in_col(line, &index, &RGB[i]))
 			return;
 		skip_spaces(line, &index);
-		if(line[index] != ',' && i != 2)
-			return;
+		if (i < 2)
+		{
+			if (line[index] != ',')
+				return;
+			index++;
+		}
 		i++;
 	}
 	skip_spaces(line, &index);
 	if(line[index] != '\0' && line[index] != '\n')
-		RGB[i] = NONE;
+		RGB[0] = NONE;
 }
 
 int	skip_spaces(char *input, size_t *index)
 {
+	int i;
+
+	i = 0;
 	while (input[*index] == ' ' || input[*index] == '\t')
+	{
+		i++;
 		(*index)++;
-	// if (!input[*index])		see if '\n' is ok
-	// 	return (0);
+	}
+	if (i == 0)
+		return (0);
 	return (1);
 }
 

@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_set.c                                          :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/11 19:40:30 by stephen           #+#    #+#             */
-/*   Updated: 2025/12/02 02:16:36 by stephen          ###   ########.fr       */
+/*   Created: 2025/12/01 23:12:56 by stephen           #+#    #+#             */
+/*   Updated: 2025/12/02 01:46:52 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	set_check_map(t_gamestruc	*game, char *av_1)
+void	free_all(t_gamestruc *game)
 {
-	set_texture(&game->texture, av_1);
-	check_texture(&game->texture, game);
-	print_texture(game->texture);
-	// set_map(&game->map, av_1);
+	if(game->texture.NO->path)
+		free(game->texture.NO->path);
+	if(game->texture.SO->path)
+		free(game->texture.SO->path);
+	if(game->texture.WE->path)
+		free(game->texture.WE->path);
+	if(game->texture.EA->path)
+		free(game->texture.EA->path);
+	free(game->texture.NO);
+	free(game->texture.SO);
+	free(game->texture.WE);
+	free(game->texture.EA);
 }
