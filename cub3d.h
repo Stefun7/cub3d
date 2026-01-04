@@ -6,7 +6,7 @@
 /*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:20:26 by stephen           #+#    #+#             */
-/*   Updated: 2025/12/02 01:48:27 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/04 03:17:36 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@
 # define ALL_SET 11
 # define NONE -1
 
-// typedef struct s_color
-// {
-// 	int	R;
-// 	int	G;
-// 	int	B;
-// }				t_color;
+typedef struct s_item
+{
+	char	type;
+	int		x;
+	int		y;
+}				t_item;
 
 typedef struct s_img
 {
@@ -49,42 +49,55 @@ typedef struct s_texturepack
 
 }				t_texturepack;
 
-typedef struct s_data_map
+typedef struct s_map
 {
-	char	*file;
-	char	character;
-	bool	valid_char;
-	bool	valid_map;
-
-}				t_data_map;
+	char		*file;
+	int			cursor;
+	int			cols;
+	int			rows;
+	char		**grid;    // map[y][x]
+	t_item		start_p;
+} t_map;
 
 typedef struct s_gamestruc
 {
 	void			*mlx_ptr;
 	void			*win_ptr;
 	t_texturepack	texture;
-	t_data_map		map;
+	t_map			map;
+	// t_data_map		map;
 }				t_gamestruc;
 
 #endif
 
 //map_set
+void	init_map(t_map *map, char *file);
+void	set_map(t_map *map, char *file);
 void	set_check_map(t_gamestruc	*game, char *av_1);
+char 	*get_to_map(t_map *map, int *fd);
 
+
+//texture_set
+void check_texture(t_texturepack	*t, t_gamestruc *game);
+void set_texture(t_gamestruc	*game, t_texturepack	*all_textures, char *file);
+void	init_texture(t_texturepack	*all_textures);
+void	c_init_texture(t_texturepack	*all_textures);
+int set_type_id(t_texturepack	*t, char *line);
+
+char	*get_path_texture(char *line);
+void	set_color(int	RGB[3], char *line);
+int	int_in_col(char *line, size_t *index, int *col);
 
 //utils
 int	open_fd(char *file);
 int	skip_spaces(char *input, size_t *index);
-void	set_color(int	RGB[3], char *line);
-int	int_in_col(char *line, size_t *index, int *col);
-
-char	*get_path_texture(char *line);
-
 void	exit_game(char *error_message, t_gamestruc *game);
-
+char *start_map(char *file, int *fd);
 
 //free
 void	free_all(t_gamestruc *game);
 
 //debug
-void	print_texture(t_texturepack	all_textures);
+void	print_type_id(t_texturepack	all_textures);
+void	print_map(t_map	map);
+void	print_all(t_gamestruc	*game);

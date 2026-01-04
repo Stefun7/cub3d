@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   id_set.c                                           :+:      :+:    :+:   */
+/*   texture_set.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 02:15:30 by stephen           #+#    #+#             */
-/*   Updated: 2025/12/02 02:16:38 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/03 18:56:03 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int set_type_id(t_texturepack	*t, char *line)
 	return(0);
 }
 
-void	init_img(t_texturepack	*all_textures)
+void	c_init_texture(t_texturepack	*all_textures)
 {
 	all_textures->NO->path = NULL;
 	all_textures->NO->ptr = NULL;
@@ -73,15 +73,14 @@ void	init_texture(t_texturepack	*all_textures)
 	all_textures->SO = malloc(sizeof(t_img));
 	all_textures->WE = malloc(sizeof(t_img));
 	all_textures->EA = malloc(sizeof(t_img));
-
-	//maybe secure
+	//maybe pass game in the function so we can free individuals texture
 	if (!all_textures->NO || !all_textures->SO || !all_textures->WE ||
 	!all_textures->EA)
 		exit_game("Error\nMalloc failed", NULL);
-	init_img(all_textures);
+	c_init_texture(all_textures);
 }
 
-void set_texture(t_texturepack	*all_textures, char *file)
+void set_texture(t_gamestruc	*game, t_texturepack	*all_textures, char *file)
 {
 	int		fd;
 	char	*line;
@@ -92,12 +91,21 @@ void set_texture(t_texturepack	*all_textures, char *file)
 	line = get_next_line(fd);
 	while(line)
 	{
+		game->map.cursor++;
 		except = set_type_id(all_textures, line);
 		free(line);
 		if(except == ALL_SET)
+		{
+			line = get_next_line(fd);
 			break;
+		}
 		else if(except)
 			exit_game("Error\nInvalid type identifier !", NULL);
+		line = get_next_line(fd);
+	}
+	while(line)
+	{
+		free(line);
 		line = get_next_line(fd);
 	}
 	close(fd);

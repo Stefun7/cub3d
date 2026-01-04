@@ -31,60 +31,6 @@ void	exit_game(char *error_message, t_gamestruc *game)
 	exit(1);
 }
 
-char	*get_path_texture(char *line)
-{
-	size_t	index;
-	size_t	end;
-	size_t	after_end;
-	char 	*path;
-
-	index = 0;
-	while(line[index] == ' ' || line[index] == '\t')
-		index++;
-	if(index == 0 || ft_strncmp((line + index), "./", 2) != 0)
-		return(NULL);
-	end = index;
-	while(line[end] && (line[end] != ' ' && line[end] != '\t' && line[end] != '\n'))
-		end ++;
-	after_end = end;
-	while(line[after_end] == ' ' && line[after_end] == '\t')
-		after_end++;
-	if(line[after_end] != '\0' && line[after_end] != '\n')
-		return(NULL);
-	path = ft_substr(line, index, end - index);
-	if(!path)
-		return(NULL);
-	return(path);
-}
-
-void	set_color(int	RGB[3], char *line)
-{
-	size_t	index;
-	int i;
-
-	index = 0;
-	i = 0;
-	if(*line != ' ' && *line != '\t')
-		return;
-	while(i < 3)
-	{
-		skip_spaces(line, &index);
-		if(!int_in_col(line, &index, &RGB[i]))
-			return;
-		skip_spaces(line, &index);
-		if (i < 2)
-		{
-			if (line[index] != ',')
-				return;
-			index++;
-		}
-		i++;
-	}
-	skip_spaces(line, &index);
-	if(line[index] != '\0' && line[index] != '\n')
-		RGB[0] = NONE;
-}
-
 int	skip_spaces(char *input, size_t *index)
 {
 	int i;
@@ -100,21 +46,22 @@ int	skip_spaces(char *input, size_t *index)
 	return (1);
 }
 
-int	int_in_col(char *line, size_t *index, int *col)
-{
-	int res;
-	int len;
+// char *start_of_map(char *file, int *fd)
+// {
+// 	char *start;
 
-	res = 0;
-	len = 0;
-	while (ft_isdigit(line[*index]))
-	{
-		res = res * 10 + (line[*index] - '0');
-		(*index)++;
-		len++;
-	}
-	if (len == 0 || res < 0 || res > 255)
-		return (0);
-	*col = res;
-	return (1);
-}
+// 	(*fd) = open_fd(file);
+// 	start = get_next_line(fd);
+// 	while(start)
+// 	{
+// 		while (*start == ' ' || *start == '\t')
+// 			start++;
+// 		if ()
+// 	}
+// 	if(!start)
+// 	{
+// 		close(*fd);
+// 		return(NULL);
+// 	}
+// 	return(start);
+// }
