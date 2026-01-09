@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:24:28 by stephen           #+#    #+#             */
-/*   Updated: 2025/12/02 01:48:36 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/09 17:53:55 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ int	main(int ac, char **av)
 	t_gamestruc	game;
 
 	verif_args(ac, av);
-	set_check_map(&game, av[1]);
+	set_check_data(&game, av[1]);
 	free_all(&game);
 	return(0);
-
 }

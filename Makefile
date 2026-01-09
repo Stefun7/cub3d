@@ -4,7 +4,7 @@ INC = cub3d.h
 
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g -O0
 
 SRCS = $(wildcard *.c) #remove wilcard after !!!
 
@@ -21,7 +21,7 @@ $(NAME): $(OBJS) $(LIBFT)
 	$(CC) $(OBJS) ${LIBFT} -o $(NAME)
 
 %.o : %.c
-	${CC} -I${INC} -c -o $@ $<
+	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 clean:
 	rm -rf $(OBJS)

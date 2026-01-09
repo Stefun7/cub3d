@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_set.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 02:15:30 by stephen           #+#    #+#             */
-/*   Updated: 2026/01/03 18:56:03 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/09 20:52:09 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ void set_texture(t_gamestruc	*game, t_texturepack	*all_textures, char *file)
 	line = get_next_line(fd);
 	while(line)
 	{
-		game->map.cursor++;
 		except = set_type_id(all_textures, line);
 		free(line);
 		if(except == ALL_SET)
@@ -101,6 +100,7 @@ void set_texture(t_gamestruc	*game, t_texturepack	*all_textures, char *file)
 		}
 		else if(except)
 			exit_game("Error\nInvalid type identifier !", NULL);
+		game->map.cursor++;
 		line = get_next_line(fd);
 	}
 	while(line)

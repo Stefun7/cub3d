@@ -25,6 +25,7 @@ int	open_fd(char *file)
 
 void	exit_game(char *error_message, t_gamestruc *game)
 {
+	printf("Error\n");
 	printf("%s\n", error_message);
 	if(game)
 		free_all(game);
@@ -46,6 +47,25 @@ int	skip_spaces(char *input, size_t *index)
 	return (1);
 }
 
+bool reach_next_line(char *line, int *fd)
+{
+	int	i;
+
+	i = 0;
+	while(line && *line == '\n')
+	{
+		free(line);
+		line = get_next_line(*fd);
+	}
+	if(line)
+	{
+		free(line);
+		close(*fd);
+		return(true);
+	}
+	else
+		return(false);
+}
 // char *start_of_map(char *file, int *fd)
 // {
 // 	char *start;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:20:26 by stephen           #+#    #+#             */
-/*   Updated: 2026/01/04 03:17:36 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/09 17:55:49 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "Libft/inc/get_next_line.h"
 # define ALL_SET 11
 # define NONE -1
+# define MULTI -2
 
 typedef struct s_item
 {
@@ -71,11 +72,15 @@ typedef struct s_gamestruc
 #endif
 
 //map_set
+
 void	init_map(t_map *map, char *file);
-void	set_map(t_map *map, char *file);
-void	set_check_map(t_gamestruc	*game, char *av_1);
+void	set_map(t_map *map, t_gamestruc *game);
+void	set_check_data(t_gamestruc	*game, char *av_1);
 char 	*get_to_map(t_map *map, int *fd);
 
+bool	valid_line(char *line, int *fd);
+void	check_map(t_map	*map, t_gamestruc	*game);
+void	set_pos(t_map *map, char *line, int y);
 
 //texture_set
 void check_texture(t_texturepack	*t, t_gamestruc *game);
@@ -93,6 +98,7 @@ int	open_fd(char *file);
 int	skip_spaces(char *input, size_t *index);
 void	exit_game(char *error_message, t_gamestruc *game);
 char *start_map(char *file, int *fd);
+bool reach_next_line(char *line, int *fd);
 
 //free
 void	free_all(t_gamestruc *game);

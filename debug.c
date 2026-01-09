@@ -20,7 +20,7 @@ void	print_map(t_map	map)
 	int i = 0;
 	while(map.grid[i])
 	{
-		printf("%s", map.grid[i]);
+		printf("|%s|\n", map.grid[i]);
 		i++;
 	}
 	printf("\nstart_x : %d, start_y : %d, start_dir : %c\n", map.start_p.x,  map.start_p.y,  map.start_p.type);

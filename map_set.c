@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_set.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 19:40:30 by stephen           #+#    #+#             */
-/*   Updated: 2026/01/04 03:21:32 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/09 20:54:55 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,37 +45,12 @@
 // 	return (line_index);
 // }
 
-void	check_map(t_map	*map, t_gamestruc	*game)
-{
-
-}
-
-void	set_pos(t_map *map, char *line, int fd, int y)
-{
-	int	x;
-
-	x = 0;
-	if(map->start_p.type != NONE)
-		return;
-	while(line[x])
-	{
-		if(line[x] != '0' && line[x] != '1' && line[x] != ' ')
-		{
-			map->start_p.type = line[x];
-			map->start_p.x = x;
-			map->start_p.y = y;
-			return;
-		}
-		x++;
-	}
-	return;
-}
-
 //need to pass game so we can free correctly if error
+
 void	init_map(t_map *map, char *file)
 {
 	int		fd;
-	int		y;
+	int		x;
 	char	*line;
 
 	map->start_p.type = NONE;
@@ -87,13 +62,13 @@ void	init_map(t_map *map, char *file)
 	line = get_to_map(map, &fd);
 	while (line != NULL)
 	{
-		y = ft_strlen(line);
-		map->cols = y;
-		if (y > map->cols)
-			map->cols = y;
+		x = ft_strlen(line);
+		if (x > map->cols)
+			map->cols = x;
+		if(*line != '\n')
+			map->rows++;
 		free(line);
 		line = get_next_line(fd);
-		map->rows++;
 	}
 	close(fd);
 	if (map->cols == 0)
@@ -126,7 +101,7 @@ char *get_to_map(t_map *map, int *fd)
 	return(line);
 }
 
-void	set_map(t_map *map, char *file)
+void	set_map(t_map *map, t_gamestruc *game)
 {
 	int		fd;
 	int		y;
@@ -134,9 +109,12 @@ void	set_map(t_map *map, char *file)
 
 	y = 0;
 	line = get_to_map(map, &fd);
-	while(line)
+	if (!valid_line(line, &fd))
+		exit_game("Invalid Map !\nLine not valid", game);
+	while(line && *line != '\n')
 	{
-		map->grid[y] = ft_strdup(line);
+		map->grid[y] = ft_substr(line, 0, ft_strlen(line) - 1);
+		set_pos(map, map->grid[y], y);
 		if(!map->grid[y])
 		{
 			close(fd);
@@ -146,19 +124,20 @@ void	set_map(t_map *map, char *file)
 		line = get_next_line(fd);
 		y++;
 	}
+	if(reach_next_line(line, &fd))
+		exit_game("Invalid Map !\nOpen Map are not supported", game);
 	close(fd);
 	map->grid[y] = NULL;
 }
 
-void	set_check_map(t_gamestruc	*game, char *av_1)
+void	set_check_data(t_gamestruc	*game, char *av_1)
 {
 	game->map.cursor = 0;
 	init_texture(&game->texture);
 	set_texture(game, &game->texture, av_1);
 	check_texture(&game->texture, game);
-	// print_type_id(game->texture);
 	init_map(&game->map, av_1);
-	set_map(&game->map, av_1);
-	print_all(game);
+	set_map(&game->map, game);
 	check_map(&game->map, game);
+	print_all(game);
 }
