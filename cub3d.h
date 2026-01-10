@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:20:26 by stephen           #+#    #+#             */
-/*   Updated: 2026/01/10 17:51:57 by scesar           ###   ########.fr       */
+/*   Updated: 2026/01/10 18:49:32 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	check_map(t_map	*map, t_gamestruc	*game);
 void	set_pos(t_map *map, char *line, int y);
 
 int map_open(t_map *map);
-bool cross_check_z(t_map *map, size_t i, size_t j);
+bool cross_check(t_map *map, size_t i, size_t j, char c);
 
 //texture_set
 void check_texture(t_texturepack	*t, t_gamestruc *game);
