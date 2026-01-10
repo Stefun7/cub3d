@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:10:06 by scesar            #+#    #+#             */
-/*   Updated: 2024/09/16 19:22:58 by scesar           ###   ########.fr       */
+/*   Updated: 2026/01/10 20:15:30 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*void	ft_toupperplusplus(unsigned int i, char *str)
 {
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] >= 97 && str[i] <= 122)
         	str[i] -= 32;

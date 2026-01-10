@@ -5,34 +5,37 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/11 19:40:30 by stephen           #+#    #+#             */
-/*   Updated: 2026/01/10 17:52:14 by scesar           ###   ########.fr       */
+/*   Created: 2026/01/10 20:59:53 by scesar            #+#    #+#             */
+/*   Updated: 2026/01/10 21:01:11 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-//need to pass game everywhere so we can free correctly if error
-
-void	init_map(t_map *map, char *file)
+void	pre_init_map(t_map *map)
 {
-	int		fd;
-	size_t		x;
-	char	*line;
-
 	map->start_p.type = NONE;
 	map->start_p.x = 0;
 	map->start_p.y = 0;
 	map->rows = 0;
 	map->cols = 0;
+}
+
+void	init_map(t_map *map, char *file)
+{
+	size_t	x;
+	int		fd;
+	char	*line;
+
 	map->file = file;
+	pre_init_map(map);
 	line = get_to_map(map, &fd);
 	while (line != NULL)
 	{
 		x = ft_strlen(line);
 		if (x > map->cols)
 			map->cols = x;
-		if(*line != '\n')
+		if (*line != '\n')
 			map->rows++;
 		free(line);
 		line = get_next_line(fd);
@@ -41,30 +44,8 @@ void	init_map(t_map *map, char *file)
 	if (map->cols == 0)
 		exit_game("Empty map !", NULL);
 	map->grid = (char **)malloc(sizeof(char *) * (map->rows + 1));
-	if(!map->grid)
+	if (!map->grid)
 		exit_game("Malloc error", NULL);
-}
-
-char *get_to_map(t_map *map, int *fd)
-{
-	char *line;
-	int	i;
-
-	i = 0;
-	(*fd) = open_fd(map->file);
-	line = get_next_line(*fd);
-	while(i < map->cursor)
-	{
-		free(line);
-		line = get_next_line(*fd);
-		i++;
-	}
-	while(line && (*line == '\n' || *line == '\0'))	//check if work with empty map
-	{
-		free(line);
-		line = get_next_line(*fd);
-	}
-	return(line);
 }
 
 void	set_map(t_map *map, t_gamestruc *game)
@@ -77,11 +58,11 @@ void	set_map(t_map *map, t_gamestruc *game)
 	line = get_to_map(map, &fd);
 	if (!valid_line(line, &fd))
 		exit_game("Invalid Map !\nLine not valid", game);
-	while(line && *line != '\n')
+	while (line && *line != '\n')
 	{
 		map->grid[y] = ft_substr(line, 0, ft_strlen(line) - 1);
 		set_pos(map, map->grid[y], y);
-		if(!map->grid[y])
+		if (!map->grid[y])
 		{
 			close(fd);
 			exit_game("Malloc error", NULL);
@@ -90,20 +71,8 @@ void	set_map(t_map *map, t_gamestruc *game)
 		line = get_next_line(fd);
 		y++;
 	}
-	if(reach_next_line(line, &fd))
+	if (reach_next_line(line, &fd))
 		exit_game("Invalid Map !\nOpen Map are not supported", game);
 	close(fd);
 	map->grid[y] = NULL;
-}
-
-void	set_check_data(t_gamestruc	*game, char *av_1)
-{
-	game->map.cursor = 0;
-	init_texture(&game->texture);
-	set_texture(game, &game->texture, av_1);
-	check_texture(&game->texture, game);
-	init_map(&game->map, av_1);
-	set_map(&game->map, game);
-	check_map(&game->map, game);
-	print_all(game);
 }

@@ -3,118 +3,113 @@
 /*                                                        :::      ::::::::   */
 /*   texture_set.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 02:15:30 by stephen           #+#    #+#             */
-/*   Updated: 2026/01/10 14:44:04 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/10 20:46:34 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int set_type_id(t_texturepack	*t, char *line)
+int	set_type_id(t_texturepack	*t, char *line)
 {
-	char *trim;
+	char	*trim;
 
-	if(t->F_RGB[0] != NONE && t->C_RGB[0] != NONE && t->NO->path && t->SO->path && t->WE->path && t->EA->path)
-		return(ALL_SET);
+	if (t->f_rgb[0] != NONE && t->c_rgb[0] != NONE && t->no->path
+		&& t->so->path && t->we->path && t->ea->path)
+		return (ALL_SET);
 	trim = line;
-	while(*trim == ' ' || *trim == '\t')
+	while (*trim == ' ' || *trim == '\t')
 		trim++;
 	if (*trim == '\n' || *trim == '\0')
 		return (0);
-	if(ft_strncmp(trim, "NO", 2) == 0)
-		t->NO->path = get_path_texture(trim + 2);
-	else if(ft_strncmp(trim, "SO", 2) == 0)
-		t->SO->path = get_path_texture(trim + 2);
-	else if(ft_strncmp(trim, "WE", 2) == 0)
-		t->WE->path = get_path_texture(trim + 2);
-	else if(ft_strncmp(trim, "EA", 2) == 0)
-		t->EA->path = get_path_texture(trim + 2);
-	else if(*trim == 'F')
-		set_color(t->F_RGB, trim + 1);
-	else if(*trim == 'C')
-		set_color(t->C_RGB, trim + 1);
+	if (ft_strncmp(trim, "NO", 2) == 0)
+		t->no->path = get_path_texture(trim + 2);
+	else if (ft_strncmp(trim, "SO", 2) == 0)
+		t->so->path = get_path_texture(trim + 2);
+	else if (ft_strncmp(trim, "WE", 2) == 0)
+		t->we->path = get_path_texture(trim + 2);
+	else if (ft_strncmp(trim, "EA", 2) == 0)
+		t->ea->path = get_path_texture(trim + 2);
+	else if (*trim == 'F')
+		set_color(t->f_rgb, trim + 1);
+	else if (*trim == 'C')
+		set_color(t->c_rgb, trim + 1);
 	else
-		return(1);
-	return(0);
+		return (1);
+	return (0);
 }
 
 void	c_init_texture(t_texturepack	*all_textures)
 {
-	all_textures->NO->path = NULL;
-	all_textures->NO->ptr = NULL;
-	all_textures->NO->x = 0;
-	all_textures->NO->y = 0;
-	all_textures->SO->path = NULL;
-	all_textures->SO->ptr = NULL;
-	all_textures->SO->x = 0;
-	all_textures->SO->y = 0;
-	all_textures->WE->path = NULL;
-	all_textures->WE->ptr = NULL;
-	all_textures->WE->x = 0;
-	all_textures->WE->y = 0;
-	all_textures->EA->path = NULL;
-	all_textures->EA->ptr = NULL;
-	all_textures->EA->x = 0;
-	all_textures->EA->y = 0;
-	all_textures->F_RGB[0] = NONE;
-	all_textures->C_RGB[0] = NONE;
-	all_textures->F_RGB[1] = NONE;
-	all_textures->C_RGB[1] = NONE;
-	all_textures->F_RGB[2] = NONE;
-	all_textures->C_RGB[2] = NONE;
-
+	all_textures->no->path = NULL;
+	all_textures->no->ptr = NULL;
+	all_textures->no->x = 0;
+	all_textures->no->y = 0;
+	all_textures->so->path = NULL;
+	all_textures->so->ptr = NULL;
+	all_textures->so->x = 0;
+	all_textures->so->y = 0;
+	all_textures->we->path = NULL;
+	all_textures->we->ptr = NULL;
+	all_textures->we->x = 0;
+	all_textures->we->y = 0;
+	all_textures->ea->path = NULL;
+	all_textures->ea->ptr = NULL;
+	all_textures->ea->x = 0;
+	all_textures->ea->y = 0;
+	all_textures->f_rgb[0] = NONE;
+	all_textures->c_rgb[0] = NONE;
+	all_textures->f_rgb[1] = NONE;
+	all_textures->c_rgb[1] = NONE;
+	all_textures->f_rgb[2] = NONE;
+	all_textures->c_rgb[2] = NONE;
 }
 
-void	init_texture(t_texturepack	*all_textures)
+void	init_texture(t_texturepack	*all_textures, t_gamestruc *game)
 {
-	all_textures->NO = malloc(sizeof(t_img));
-	all_textures->SO = malloc(sizeof(t_img));
-	all_textures->WE = malloc(sizeof(t_img));
-	all_textures->EA = malloc(sizeof(t_img));
-	//maybe pass game in the function so we can free individuals texture
-	if (!all_textures->NO || !all_textures->SO || !all_textures->WE ||
-	!all_textures->EA)
-		exit_game("Malloc failed", NULL);
+	all_textures->no = malloc(sizeof(t_img));
+	all_textures->so = malloc(sizeof(t_img));
+	all_textures->we = malloc(sizeof(t_img));
+	all_textures->ea = malloc(sizeof(t_img));
+	if (!all_textures->no || !all_textures->so || !all_textures->we
+		|| !all_textures->ea)
+		exit_game("Malloc failed", game);
 	c_init_texture(all_textures);
 }
 
-void set_texture(t_gamestruc	*game, t_texturepack	*all_textures, char *file)
+void	set_texture(t_gamestruc	*game, t_texturepack	*all_textures,
+	char *file)
 {
 	int		fd;
 	char	*line;
 	int		except;
 
-	init_texture(all_textures);
-	fd = open_fd(file);
+	init_texture(all_textures, game);
+	fd = open_fd(file, game);
 	line = get_next_line(fd);
-	while(line)
+	while (line)
 	{
 		except = set_type_id(all_textures, line);
 		free(line);
-		if(except == ALL_SET)
+		if (except == ALL_SET)
 		{
 			line = get_next_line(fd);
-			break;
+			break ;
 		}
-		else if(except)
+		else if (except)
 			exit_game("Invalid type identifier !", NULL);
 		game->map.cursor++;
 		line = get_next_line(fd);
 	}
-	while(line)
-	{
-		free(line);
-		line = get_next_line(fd);
-	}
-	close(fd);
+	end_read(line, &fd);
 }
 
-void check_texture(t_texturepack	*t, t_gamestruc *game)
+void	check_texture(t_texturepack	*t, t_gamestruc *game)
 {
-	if(!t->NO->path || !t->SO->path || !t->EA->path || !t->WE->path
-		||	t->C_RGB[0] == -1 || t->C_RGB[1] == -1 || t->C_RGB[2] == -1
-		||	t->F_RGB[0] == -1 || t->F_RGB[1] == -1 || t->F_RGB[2] == -1)
+	if (!t->no->path || !t->so->path || !t->ea->path || !t->we->path
+		|| t->c_rgb[0] == -1 || t->c_rgb[1] == -1 || t->c_rgb[2] == -1
+		|| t->f_rgb[0] == -1 || t->f_rgb[1] == -1 || t->f_rgb[2] == -1)
 		exit_game("Error\nInvalid type identifier !", game);
 }

@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 14:50:41 by scesar            #+#    #+#             */
-/*   Updated: 2024/07/02 17:44:31 by scesar           ###   ########.fr       */
+/*   Updated: 2026/01/10 20:01:54 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ char	*get_next_line(int fd)
 // 	char *str;
 //     int fd = open("test.txt", O_RDONLY);
 //     if (fd == -1)
-//         return(1);
+//         return (1);
 // 	str = get_next_line(fd);
-// 	while (str) 
+// 	while (str)
 // 	{
 // 		printf("line from main : %s \n", str);
 // 		free(str);

@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:23:20 by scesar            #+#    #+#             */
-/*   Updated: 2024/05/02 10:52:17 by scesar           ###   ########.fr       */
+/*   Updated: 2026/01/10 20:01:54 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,5 @@ void	ft_putnbr_fd(int nb, int fd)
 	int	fd = 2;
 
 	ft_putnbr_fd(i, fd);
-	return(0);
+	return (0);
 }*/

@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:24:28 by stephen           #+#    #+#             */
-/*   Updated: 2026/01/10 14:42:41 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/10 20:01:54 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	verif_args(int ac, char **av)
-{
-	int	len_av_1;
-
-	if (ac < 2)
-		exit_game("You need your map file !", NULL);
-	if (ac > 2)
-		exit_game("You only need one parameter ! (your map file)", NULL);
-	len_av_1 = ft_strlen(av[1]);
-	if (len_av_1 < 4 || (ft_strncmp(av[1] + (len_av_1 - 4), ".cub", 4)))
-		exit_game("EWrong map format, map must end with '.cub' !", NULL);
-}
 
 int	main(int ac, char **av)
 {
@@ -32,5 +19,5 @@ int	main(int ac, char **av)
 	verif_args(ac, av);
 	set_check_data(&game, av[1]);
 	free_all(&game);
-	return(0);
+	return (0);
 }

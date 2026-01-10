@@ -1,25 +1,24 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   utils.c											:+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: stephen <stephen@student.42.fr>			+#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2025/11/11 19:56:56 by stephen		   #+#	#+#			 */
-/*   Updated: 2025/11/25 22:56:53 by stephen		  ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/10 21:02:24 by scesar            #+#    #+#             */
+/*   Updated: 2026/01/10 21:04:13 by scesar           ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	open_fd(char *file)
-{//exit without considering free of anything
+int	open_fd(char *file, t_gamestruc *game)
+{
 	int	fd;
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		exit_game("Something went wrong when opening the map file...",
-			NULL);
+		exit_game("Something went wrong when opening the map file...", game);
 	return (fd);
 }
 
@@ -27,14 +26,14 @@ void	exit_game(char *error_message, t_gamestruc *game)
 {
 	printf("Error\n");
 	printf("%s\n", error_message);
-	if(game)
+	if (game)
 		free_all(game);
 	exit(1);
 }
 
 int	skip_spaces(char *input, size_t *index)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (input[*index] == ' ' || input[*index] == '\t')
@@ -46,39 +45,3 @@ int	skip_spaces(char *input, size_t *index)
 		return (0);
 	return (1);
 }
-
-bool reach_next_line(char *line, int *fd)
-{
-	while(line && *line == '\n')
-	{
-		free(line);
-		line = get_next_line(*fd);
-	}
-	if(line)
-	{
-		free(line);
-		close(*fd);
-		return(true);
-	}
-	else
-		return(false);
-}
-// char *start_of_map(char *file, int *fd)
-// {
-// 	char *start;
-
-// 	(*fd) = open_fd(file);
-// 	start = get_next_line(fd);
-// 	while(start)
-// 	{
-// 		while (*start == ' ' || *start == '\t')
-// 			start++;
-// 		if ()
-// 	}
-// 	if(!start)
-// 	{
-// 		close(*fd);
-// 		return(NULL);
-// 	}
-// 	return(start);
-// }

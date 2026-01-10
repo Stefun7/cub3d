@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/01 23:12:56 by stephen           #+#    #+#             */
-/*   Updated: 2026/01/10 15:25:43 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/10 20:12:46 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 void	free_all(t_gamestruc *game)
 {
-	if(game->texture.NO->path)
-		free(game->texture.NO->path);
-	if(game->texture.SO->path)
-		free(game->texture.SO->path);
-	if(game->texture.WE->path)
-		free(game->texture.WE->path);
-	if(game->texture.EA->path)
-		free(game->texture.EA->path);
-	free(game->texture.NO);
-	free(game->texture.SO);
-	free(game->texture.WE);
-	free(game->texture.EA);
+	if (game->texture.no->path)
+		free(game->texture.no->path);
+	if (game->texture.so->path)
+		free(game->texture.so->path);
+	if (game->texture.we->path)
+		free(game->texture.we->path);
+	if (game->texture.ea->path)
+		free(game->texture.ea->path);
+	free(game->texture.no);
+	free(game->texture.so);
+	free(game->texture.we);
+	free(game->texture.ea);
 }

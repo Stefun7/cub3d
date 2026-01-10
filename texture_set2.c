@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_set2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 05:42:24 by stephen           #+#    #+#             */
-/*   Updated: 2025/12/04 05:43:05 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/10 21:12:37 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,59 +17,60 @@ char	*get_path_texture(char *line)
 	size_t	index;
 	size_t	end;
 	size_t	after_end;
-	char 	*path;
+	char	*path;
 
 	index = 0;
-	while(line[index] == ' ' || line[index] == '\t')
+	while (line[index] == ' ' || line[index] == '\t')
 		index++;
-	if(index == 0 || ft_strncmp((line + index), "./", 2) != 0)
-		return(NULL);
+	if (index == 0 || ft_strncmp((line + index), "./", 2) != 0)
+		return (NULL);
 	end = index;
-	while(line[end] && (line[end] != ' ' && line[end] != '\t' && line[end] != '\n'))
+	while (line[end] && (line[end] != ' ' && line[end] != '\t'
+			&& line[end] != '\n'))
 		end ++;
 	after_end = end;
-	while(line[after_end] == ' ' && line[after_end] == '\t')
+	while (line[after_end] == ' ' && line[after_end] == '\t')
 		after_end++;
-	if(line[after_end] != '\0' && line[after_end] != '\n')
-		return(NULL);
+	if (line[after_end] != '\0' && line[after_end] != '\n')
+		return (NULL);
 	path = ft_substr(line, index, end - index);
-	if(!path)
-		return(NULL);
-	return(path);
+	if (!path)
+		return (NULL);
+	return (path);
 }
 
-void	set_color(int	RGB[3], char *line)
+void	set_color(int rgb[3], char *line)
 {
 	size_t	index;
-	int i;
+	int		i;
 
 	index = 0;
 	i = 0;
-	if(*line != ' ' && *line != '\t')
-		return;
-	while(i < 3)
+	if (*line != ' ' && *line != '\t')
+		return ;
+	while (i < 3)
 	{
 		skip_spaces(line, &index);
-		if(!int_in_col(line, &index, &RGB[i]))
-			return;
+		if (!int_in_col(line, &index, &rgb[i]))
+			return ;
 		skip_spaces(line, &index);
 		if (i < 2)
 		{
 			if (line[index] != ',')
-				return;
+				return ;
 			index++;
 		}
 		i++;
 	}
 	skip_spaces(line, &index);
-	if(line[index] != '\0' && line[index] != '\n')
-		RGB[0] = NONE;
+	if (line[index] != '\0' && line[index] != '\n')
+		rgb[0] = NONE;
 }
 
 int	int_in_col(char *line, size_t *index, int *col)
 {
-	int res;
-	int len;
+	int	res;
+	int	len;
 
 	res = 0;
 	len = 0;
