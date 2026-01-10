@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_set.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 19:40:30 by stephen           #+#    #+#             */
-/*   Updated: 2026/01/10 16:38:25 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/10 17:52:14 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 void	init_map(t_map *map, char *file)
 {
 	int		fd;
-	int		x;
+	size_t		x;
 	char	*line;
 
 	map->start_p.type = NONE;

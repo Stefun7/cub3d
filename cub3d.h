@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:20:26 by stephen           #+#    #+#             */
-/*   Updated: 2026/01/09 17:55:49 by scesar           ###   ########.fr       */
+/*   Updated: 2026/01/10 17:51:57 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ typedef struct s_map
 {
 	char		*file;
 	int			cursor;
-	int			cols;
-	int			rows;
+	size_t			cols;
+	size_t			rows;
 	char		**grid;    // map[y][x]
 	t_item		start_p;
 } t_map;
@@ -81,6 +81,9 @@ char 	*get_to_map(t_map *map, int *fd);
 bool	valid_line(char *line, int *fd);
 void	check_map(t_map	*map, t_gamestruc	*game);
 void	set_pos(t_map *map, char *line, int y);
+
+int map_open(t_map *map);
+bool cross_check_z(t_map *map, size_t i, size_t j);
 
 //texture_set
 void check_texture(t_texturepack	*t, t_gamestruc *game);

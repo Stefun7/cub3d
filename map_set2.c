@@ -6,7 +6,7 @@
 /*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 13:28:57 by scesar            #+#    #+#             */
-/*   Updated: 2026/01/09 21:57:16 by scesar           ###   ########.fr       */
+/*   Updated: 2026/01/10 18:01:23 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	set_pos(t_map *map, char *line, int y)
 void	check_map(t_map	*map, t_gamestruc	*game)
 {
 	size_t	i;
+	int	error;
 
 	i = 0;
 	if(!map->grid[i])
@@ -72,7 +73,82 @@ void	check_map(t_map	*map, t_gamestruc	*game)
 		exit_game("Invalid Map !\nNeed a starting position !", game);
 	if(map->start_p.type == MULTI)
 		exit_game("Invalid Map !\nCan't have more than one starting position !", game);
-	// if(!map_closed(map, game))
-	// 	exit_game("Invalid Map !\nMap not surrounded by walls !", game);
-
+	error = map_open(map);
+	//more precise message here with maccro
+	if(error)
+		exit_game("Invalid Map !\nMap not closed !", game);
 }
+
+int map_open(t_map *map)
+{
+	size_t i;
+	size_t j;
+
+	i = 0;
+	while (map->grid[i])
+	{
+		j = 0;
+		while(map->grid[i][j])
+		{
+			if(map->grid[i][j] == '0')
+			{
+				if(!cross_check_z(map, i, j))
+					return(1);
+			}
+			// else if(map->grid[i][j] == ' ')
+			// {
+			// 	if(!cross_check_s(map->grid[i][j], map, i, j))
+			// 		return(1);
+			// }
+			j++;
+		}
+		i++;
+	}
+	return(0);
+}
+
+bool cross_check_z(t_map *map, size_t i, size_t j)
+{
+	size_t	x;
+	size_t	y;
+
+	x = 0;
+	while (x < j)
+	{
+		if (map->grid[i][x] == '1')
+			break;
+		x++;
+	}
+	if(x == j)
+		return(false);
+	x = j + 1;
+	while (x < ft_strlen(map->grid[i]))
+	{
+		if (map->grid[i][x] == '1')
+			break;
+		x++;
+	}
+	if(x == ft_strlen(map->grid[i]))
+		return(false);
+
+	y = 0;
+	while (y < i)
+	{
+		if (map->grid[y][j] == '1')
+			break;
+		y++;
+	}
+	if(y == i)
+		return(false);
+	y = i + 1;
+	while (y < map->rows)
+	{
+		if (map->grid[y][j] == '1')
+			break;
+		y++;
+	}
+	if(y == map->rows)
+		return(false);
+	return(true);
+}
+

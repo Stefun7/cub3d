@@ -14,8 +14,8 @@ void	print_map(t_map	map)
 {
 	printf("file : %s\n", map.file);
 	printf("cursor : %d\n", map.cursor);
-	printf("nbr cols : %d\n", map.cols);
-	printf("nbr rows : %d\n", map.rows);
+	printf("nbr cols : %zu\n", map.cols);
+	printf("nbr rows : %zu\n", map.rows);
 	printf("map : \n");
 	int i = 0;
 	while(map.grid[i])
