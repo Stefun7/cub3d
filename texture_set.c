@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_set.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 02:15:30 by stephen           #+#    #+#             */
-/*   Updated: 2026/01/09 20:52:09 by scesar           ###   ########.fr       */
+/*   Updated: 2026/01/10 14:44:04 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	init_texture(t_texturepack	*all_textures)
 	//maybe pass game in the function so we can free individuals texture
 	if (!all_textures->NO || !all_textures->SO || !all_textures->WE ||
 	!all_textures->EA)
-		exit_game("Error\nMalloc failed", NULL);
+		exit_game("Malloc failed", NULL);
 	c_init_texture(all_textures);
 }
 
@@ -99,7 +99,7 @@ void set_texture(t_gamestruc	*game, t_texturepack	*all_textures, char *file)
 			break;
 		}
 		else if(except)
-			exit_game("Error\nInvalid type identifier !", NULL);
+			exit_game("Invalid type identifier !", NULL);
 		game->map.cursor++;
 		line = get_next_line(fd);
 	}

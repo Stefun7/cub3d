@@ -18,7 +18,7 @@ int	open_fd(char *file)
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		exit_game("Error\nSomething went wrong when opening the map file...",
+		exit_game("Something went wrong when opening the map file...",
 			NULL);
 	return (fd);
 }
@@ -49,9 +49,6 @@ int	skip_spaces(char *input, size_t *index)
 
 bool reach_next_line(char *line, int *fd)
 {
-	int	i;
-
-	i = 0;
 	while(line && *line == '\n')
 	{
 		free(line);

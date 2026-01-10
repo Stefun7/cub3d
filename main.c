@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:24:28 by stephen           #+#    #+#             */
-/*   Updated: 2026/01/09 17:53:55 by scesar           ###   ########.fr       */
+/*   Updated: 2026/01/10 14:42:41 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	verif_args(int ac, char **av)
 	int	len_av_1;
 
 	if (ac < 2)
-		exit_game("Error\nYou need your map file !", NULL);
+		exit_game("You need your map file !", NULL);
 	if (ac > 2)
-		exit_game("Error\nYou only need one parameter ! (your map file)", NULL);
+		exit_game("You only need one parameter ! (your map file)", NULL);
 	len_av_1 = ft_strlen(av[1]);
 	if (len_av_1 < 4 || (ft_strncmp(av[1] + (len_av_1 - 4), ".cub", 4)))
-		exit_game("Error\nWrong map format, map must end with '.cub' !", NULL);
+		exit_game("EWrong map format, map must end with '.cub' !", NULL);
 }
 
 int	main(int ac, char **av)

@@ -3,49 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map_set.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 19:40:30 by stephen           #+#    #+#             */
-/*   Updated: 2026/01/09 20:54:55 by scesar           ###   ########.fr       */
+/*   Updated: 2026/01/10 16:38:25 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// int find_map_start(char *file)
-// {
-// 	int		fd;
-// 	int		line_index;
-// 	char	*line;
-
-// 	fd = open_fd(file);
-// 	line = get_next_line(fd);
-// 	line_index = 1;
-// 	while (line)
-// 	{
-// 		line = get_next_line(fd);
-// 		if (*line == '\n' || *line == '\0')
-// 		{
-// 			free(line);
-// 			line_index++;
-// 			continue;
-// 		}
-// 		else if (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2)
-// 			|| !ft_strncmp(line, "WE", 2) || !ft_strncmp(line, "EA", 2)
-// 			|| *line == 'F' || *line == 'C')
-// 		{
-// 			free(line);
-// 			line_index++;
-// 			continue;
-// 		}
-// 		else
-// 			break;
-// 	}
-// 	close(fd);
-// 	return (line_index);
-// }
-
-//need to pass game so we can free correctly if error
+//need to pass game everywhere so we can free correctly if error
 
 void	init_map(t_map *map, char *file)
 {
@@ -72,7 +39,7 @@ void	init_map(t_map *map, char *file)
 	}
 	close(fd);
 	if (map->cols == 0)
-		exit_game("Error\nEmpty map !", NULL);
+		exit_game("Empty map !", NULL);
 	map->grid = (char **)malloc(sizeof(char *) * (map->rows + 1));
 	if(!map->grid)
 		exit_game("Malloc error", NULL);
@@ -86,14 +53,13 @@ char *get_to_map(t_map *map, int *fd)
 	i = 0;
 	(*fd) = open_fd(map->file);
 	line = get_next_line(*fd);
-	i = 0;
 	while(i < map->cursor)
 	{
 		free(line);
 		line = get_next_line(*fd);
 		i++;
 	}
-	while(*line == '\n' || *line == '\0')	//check if work with empty map
+	while(line && (*line == '\n' || *line == '\0'))	//check if work with empty map
 	{
 		free(line);
 		line = get_next_line(*fd);
