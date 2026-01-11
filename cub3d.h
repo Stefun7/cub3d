@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:20:26 by stephen           #+#    #+#             */
-/*   Updated: 2026/01/10 20:50:41 by scesar           ###   ########.fr       */
+/*   Updated: 2026/01/11 17:24:06 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,30 +65,39 @@ typedef struct s_gamestruc
 	t_texturepack	texture;
 	t_map			map;
 }				t_gamestruc;
-//map_set
 
-void	init_map(t_map *map, char *file);
-void	set_map(t_map *map, t_gamestruc *game);
+//data_set
+void	verif_args(int ac, char **av);
 void	set_check_data(t_gamestruc	*game, char *av_1);
-char	*get_to_map(t_map *map, int *fd);
-
-bool	valid_line(char *line, int *fd);
-void	check_map(t_map	*map, t_gamestruc	*game);
-void	set_pos(t_map *map, char *line, int y);
-
-int		map_open(t_map *map);
-bool	cross_check(t_map *map, size_t i, size_t j, char c);
 
 //texture_set
-void	check_texture(t_texturepack	*t, t_gamestruc *game);
-void	set_texture(t_gamestruc	*game, t_texturepack *all_textures, char *file);
 void	init_texture(t_texturepack	*all_textures, t_gamestruc *game);
 void	c_init_texture(t_texturepack	*all_textures);
 int		set_type_id(t_texturepack	*t, char *line);
+void	check_texture(t_texturepack	*t, t_gamestruc *game);
+void	set_texture(t_gamestruc	*game, t_texturepack *all_textures, char *file);
 
 char	*get_path_texture(char *line);
 void	set_color(int RGB[3], char *line);
 int		int_in_col(char *line, size_t *index, int *col);
+
+//map_set
+void	pre_init_map(t_map *map);
+void	init_map(t_map *map, char *file, t_gamestruc *game);
+char	*extract_line(char *line);
+void	set_map(t_map *map, t_gamestruc *game);
+
+bool	valid_line(char *line, int *fd);
+void	set_pos(t_map *map, char *line, int y);
+void	check_map(t_map	*map, t_gamestruc	*game);
+int		map_open(t_map *map);
+
+bool	cross_sp_x(t_map *map, size_t i, size_t j);
+bool	cross_sp_y(t_map *map, size_t i, size_t j);
+bool	cross_z_x(t_map *map, size_t i, size_t j);
+bool	cross_z_y(t_map *map, size_t i, size_t j);
+bool	cross_check(t_map *map, size_t i, size_t j, char c);
+
 
 //utils
 void	verif_args(int ac, char **av);
@@ -98,6 +107,7 @@ int		skip_spaces(char *input, size_t *index);
 void	exit_game(char *error_message, t_gamestruc *game);
 char	*start_map(char *file, int *fd);
 bool	reach_next_line(char *line, int *fd);
+char	*get_to_map(t_map *map, int *fd);
 
 //free
 void	free_all(t_gamestruc *game);

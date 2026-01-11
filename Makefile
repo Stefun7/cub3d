@@ -4,7 +4,7 @@ INC = cub3d.h
 
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra -g -O0
+CFLAGS = -Wall -Werror -Wextra
 
 SRCS = $(wildcard *.c) #remove wilcard after !!!
 

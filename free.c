@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/01 23:12:56 by stephen           #+#    #+#             */
-/*   Updated: 2026/01/10 20:12:46 by scesar           ###   ########.fr       */
+/*   Updated: 2026/01/11 17:38:50 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	free_all(t_gamestruc *game)
 {
+	size_t i;
+
+	i = 0;
 	if (game->texture.no->path)
 		free(game->texture.no->path);
 	if (game->texture.so->path)
@@ -26,4 +29,14 @@ void	free_all(t_gamestruc *game)
 	free(game->texture.so);
 	free(game->texture.we);
 	free(game->texture.ea);
+	if (game->map.grid)
+	{
+		while (game->map.grid[i])
+		{
+			if (game->map.grid[i])
+				free(game->map.grid[i]);
+			i++;
+		}
+		free(game->map.grid);
+	}
 }

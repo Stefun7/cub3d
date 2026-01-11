@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_set.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 20:59:53 by scesar            #+#    #+#             */
-/*   Updated: 2026/01/10 21:01:11 by scesar           ###   ########.fr       */
+/*   Updated: 2026/01/11 17:39:33 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	pre_init_map(t_map *map)
 {
+	map->grid = NULL;
 	map->start_p.type = NONE;
 	map->start_p.x = 0;
 	map->start_p.y = 0;
@@ -21,7 +22,7 @@ void	pre_init_map(t_map *map)
 	map->cols = 0;
 }
 
-void	init_map(t_map *map, char *file)
+void	init_map(t_map *map, char *file, t_gamestruc *game)
 {
 	size_t	x;
 	int		fd;
@@ -43,9 +44,20 @@ void	init_map(t_map *map, char *file)
 	close(fd);
 	if (map->cols == 0)
 		exit_game("Empty map !", NULL);
-	map->grid = (char **)malloc(sizeof(char *) * (map->rows + 1));
+	map->grid = ft_calloc((map->rows + 1), sizeof(char *));
 	if (!map->grid)
-		exit_game("Malloc error", NULL);
+		exit_game("Malloc error", game);
+}
+
+char	*extract_line(char *line)
+{
+	char	*res;
+
+	if (line[ft_strlen(line) - 1] == '\n')
+		res = ft_substr(line, 0, ft_strlen(line) - 1);
+	else
+		res = ft_substr(line, 0, ft_strlen(line));
+	return (res);
 }
 
 void	set_map(t_map *map, t_gamestruc *game)
@@ -60,13 +72,13 @@ void	set_map(t_map *map, t_gamestruc *game)
 		exit_game("Invalid Map !\nLine not valid", game);
 	while (line && *line != '\n')
 	{
-		map->grid[y] = ft_substr(line, 0, ft_strlen(line) - 1);
-		set_pos(map, map->grid[y], y);
+		map->grid[y] = extract_line(line);
 		if (!map->grid[y])
 		{
 			close(fd);
-			exit_game("Malloc error", NULL);
+			exit_game("Malloc error", game);
 		}
+		set_pos(map, map->grid[y], y);
 		free(line);
 		line = get_next_line(fd);
 		y++;
