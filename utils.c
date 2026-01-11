@@ -6,7 +6,7 @@
 /*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 21:02:24 by scesar            #+#    #+#             */
-/*   Updated: 2026/01/11 17:41:47 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/11 23:09:02 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	open_fd(char *file, t_gamestruc *game)
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		exit_game("Something went wrong when opening the map file...", game);
+		exit_game(OPEN_ERR, game);
 	return (fd);
 }
 

@@ -6,7 +6,7 @@
 /*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 20:59:53 by scesar            #+#    #+#             */
-/*   Updated: 2026/01/11 18:06:00 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/11 19:24:37 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ void	init_map(t_map *map, char *file, t_gamestruc *game)
 	}
 	close(fd);
 	if (map->cols == 0)
-		exit_game("Empty map !", game);
+		exit_game(EMPTY_MAP, game);
 	map->grid = ft_calloc((map->rows + 1), sizeof(char *));
 	if (!map->grid)
-		exit_game("Malloc error", game);
+		exit_game(MALLOC_ERR, game);
 }
 
 char	*extract_line(char *line)
@@ -71,14 +71,14 @@ void	set_map(t_map *map, t_gamestruc *game)
 	y = 0;
 	line = get_to_map(map, &fd);
 	if (!valid_line(line, &fd))
-		exit_game("Invalid Map !\nLine not valid", game);
+		exit_game(INVALID_LINE, game);
 	while (line && *line != '\n')
 	{
 		map->grid[y] = extract_line(line);
 		if (!map->grid[y])
 		{
 			close(fd);
-			exit_game("Malloc error", game);
+			exit_game(MALLOC_ERR, game);
 		}
 		set_pos(map, map->grid[y], y);
 		free(line);
@@ -86,7 +86,7 @@ void	set_map(t_map *map, t_gamestruc *game)
 		y++;
 	}
 	if (reach_next_line(line, &fd))
-		exit_game("Invalid Map !\nOpen Map are not supported", game);
+		exit_game(OPEN_MAP, game);
 	close(fd);
 	map->grid[y] = NULL;
 }

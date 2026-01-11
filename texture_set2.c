@@ -6,19 +6,21 @@
 /*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 05:42:24 by stephen           #+#    #+#             */
-/*   Updated: 2026/01/11 17:58:43 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/12 00:00:41 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	*get_path_texture(char *line, t_gamestruc *game)
+char	*get_path_texture(char *line, t_gamestruc *game, char *p)
 {
 	size_t	index;
 	size_t	end;
 	size_t	after_end;
 	char	*path;
 
+	if (p)
+		exit_game(MULTI_ID, game);
 	index = 0;
 	while (line[index] == ' ' || line[index] == '\t')
 		index++;
@@ -35,7 +37,7 @@ char	*get_path_texture(char *line, t_gamestruc *game)
 		return (NULL);
 	path = ft_substr(line, index, end - index);
 	if (!path)
-		exit_game("Malloc Error", game);
+		exit_game(MALLOC_ERR, game);
 	return (path);
 }
 
@@ -69,18 +71,16 @@ void	set_color(int rgb[3], char *line)
 
 int	int_in_col(char *line, size_t *index, int *col)
 {
-	int	res;
-	int	len;
+	size_t	start;
+	int		res;
 
-	res = 0;
-	len = 0;
+	start = *index;
+	if (!ft_isdigit(line[*index]))
+		return (0);
 	while (ft_isdigit(line[*index]))
-	{
-		res = res * 10 + (line[*index] - '0');
 		(*index)++;
-		len++;
-	}
-	if (len == 0 || res < 0 || res > 255)
+	res = ft_atoi(&line[start]);
+	if (res  < 0 || res > 255)
 		return (0);
 	*col = res;
 	return (1);

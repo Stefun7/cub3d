@@ -22,6 +22,8 @@
 // 	//floor and ceiling colors as int
 // 	int floor[3] = game.texture.f_rgb;
 // 	int ceiling[3] = game.texture.c_rgb;
+// 	int f_color = (game.texture.f_rgb[0] << 16) | (game.texture.f_rgb[1] << 8) | game.texture.f_rgb[2]
+// 	int c_color = (game.texture.c_rgb[0] << 16) | (game.texture.c_rgb[1] << 8) | game.texture.c_rgb[2]
 
 // 	//starting position
 // 	char direction = game.map.start_p.type;

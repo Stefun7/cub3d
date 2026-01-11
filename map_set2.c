@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_set2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 13:28:57 by scesar            #+#    #+#             */
-/*   Updated: 2026/01/10 21:09:53 by scesar           ###   ########.fr       */
+/*   Updated: 2026/01/11 19:30:01 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,23 +63,22 @@ void	check_map(t_map	*map, t_gamestruc	*game)
 
 	i = 0;
 	if (!map->grid[i])
-		exit_game("Invalid Map !\nYou actually need a map...", game);
+		exit_game(EMPTY_MAP, game);
 	while (map->grid[i])
 	{
 		if (!valid_line(map->grid[i], NULL))
-			exit_game("Invalid Map !\nOnly 1, 0, N, S, W, E and spaces accepted", game);
+			exit_game(INVALID_LINE, game);
 		i++;
 	}
 	if (map->cols < 3 || map->rows < 3)
-		exit_game("Invalid Map !\nAt least 3x3 map required !", game);
+		exit_game(MIN_DIM, game);
 	if (map->start_p.type == NONE)
-		exit_game("Invalid Map !\nNeed a starting position !", game);
+		exit_game(NO_START, game);
 	if (map->start_p.type == MULTI)
-		exit_game("Invalid Map !\nCan't have more than one starting position !", game);
+		exit_game(MULTI_START, game);
 	error = map_open(map);
-	//more precise message here with maccro
 	if (error)
-		exit_game("Invalid Map !\nMap not closed !", game);
+		exit_game(NO_SURR_W, game);
 }
 
 int	map_open(t_map *map)

@@ -6,7 +6,7 @@
 /*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 02:15:30 by stephen           #+#    #+#             */
-/*   Updated: 2026/01/11 18:07:46 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/11 23:49:10 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ int	set_type_id(t_texturepack	*t, char *line, t_gamestruc *game)
 	if (*trim == '\n' || *trim == '\0')
 		return (0);
 	if (ft_strncmp(trim, "NO", 2) == 0)
-		t->no->path = get_path_texture(trim + 2, game);
+		t->no->path = get_path_texture(trim + 2, game, t->no->path);
 	else if (ft_strncmp(trim, "SO", 2) == 0)
-		t->so->path = get_path_texture(trim + 2, game);
+		t->so->path = get_path_texture(trim + 2, game, t->so->path);
 	else if (ft_strncmp(trim, "WE", 2) == 0)
-		t->we->path = get_path_texture(trim + 2, game);
+		t->we->path = get_path_texture(trim + 2, game, t->we->path);
 	else if (ft_strncmp(trim, "EA", 2) == 0)
-		t->ea->path = get_path_texture(trim + 2, game);
+		t->ea->path = get_path_texture(trim + 2, game, t->ea->path);
 	else if (*trim == 'F')
 		set_color(t->f_rgb, trim + 1);
 	else if (*trim == 'C')
@@ -79,7 +79,7 @@ void	init_texture(t_texturepack	*all_textures, t_gamestruc *game)
 	all_textures->ea = malloc(sizeof(t_img));
 	if (!all_textures->no || !all_textures->so || !all_textures->we
 		|| !all_textures->ea)
-		exit_game("Malloc failed", game);
+		exit_game(MALLOC_ERR, game);
 	c_init_texture(all_textures);
 }
 
@@ -102,7 +102,7 @@ void	set_texture(t_gamestruc	*game, t_texturepack	*all_textures,
 			break ;
 		}
 		else if (except)
-			exit_game("Invalid type identifier !", game);
+			exit_game(INVALID_ID, game);
 		game->map.cursor++;
 		line = get_next_line(fd);
 	}
@@ -114,5 +114,5 @@ void	check_texture(t_texturepack	*t, t_gamestruc *game)
 	if (!t->no->path || !t->so->path || !t->ea->path || !t->we->path
 		|| t->c_rgb[0] == -1 || t->c_rgb[1] == -1 || t->c_rgb[2] == -1
 		|| t->f_rgb[0] == -1 || t->f_rgb[1] == -1 || t->f_rgb[2] == -1)
-		exit_game("Error\nInvalid type identifier !", game);
+		exit_game(INVALID_ID, game);
 }

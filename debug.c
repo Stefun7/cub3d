@@ -10,6 +10,7 @@ void	print_type_id(t_texturepack	all_textures)
 	printf("C : %d, %d, %d\n", all_textures.c_rgb[0], all_textures.c_rgb[1], all_textures.c_rgb[2]);
 }
 
+
 void	print_map(t_map	map)
 {
 	printf("file : %s\n", map.file);
