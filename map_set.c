@@ -6,7 +6,7 @@
 /*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 20:59:53 by scesar            #+#    #+#             */
-/*   Updated: 2026/01/11 18:01:48 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/11 18:06:00 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ char	*extract_line(char *line)
 		res = ft_substr(line, 0, ft_strlen(line) - 1);
 	else
 		res = ft_substr(line, 0, ft_strlen(line));
+	if (!res)
+		free(line);
 	return (res);
 }
 

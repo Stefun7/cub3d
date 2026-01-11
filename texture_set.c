@@ -6,7 +6,7 @@
 /*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 02:15:30 by stephen           #+#    #+#             */
-/*   Updated: 2026/01/11 17:57:43 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/11 18:07:46 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	set_texture(t_gamestruc	*game, t_texturepack	*all_textures,
 			break ;
 		}
 		else if (except)
-			exit_game("Invalid type identifier !", NULL);
+			exit_game("Invalid type identifier !", game);
 		game->map.cursor++;
 		line = get_next_line(fd);
 	}
