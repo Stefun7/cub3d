@@ -6,7 +6,7 @@
 /*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:20:26 by stephen           #+#    #+#             */
-/*   Updated: 2026/01/11 23:31:55 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/12 00:23:14 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ typedef struct s_texturepack
 	t_img		*ea;
 	int			f_rgb[3];
 	int			c_rgb[3];
-	//To convert to MLX color:
-	//int color = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
 }				t_texturepack;
 
 typedef struct s_map
