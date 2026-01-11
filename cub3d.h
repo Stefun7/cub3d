@@ -6,7 +6,7 @@
 /*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:20:26 by stephen           #+#    #+#             */
-/*   Updated: 2026/01/11 17:24:06 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/11 17:57:28 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ void	set_check_data(t_gamestruc	*game, char *av_1);
 //texture_set
 void	init_texture(t_texturepack	*all_textures, t_gamestruc *game);
 void	c_init_texture(t_texturepack	*all_textures);
-int		set_type_id(t_texturepack	*t, char *line);
+int		set_type_id(t_texturepack	*t, char *line, t_gamestruc *game);
 void	check_texture(t_texturepack	*t, t_gamestruc *game);
 void	set_texture(t_gamestruc	*game, t_texturepack *all_textures, char *file);
 
-char	*get_path_texture(char *line);
+char	*get_path_texture(char *line, t_gamestruc *game);
 void	set_color(int RGB[3], char *line);
 int		int_in_col(char *line, size_t *index, int *col);
 
@@ -111,6 +111,7 @@ char	*get_to_map(t_map *map, int *fd);
 
 //free
 void	free_all(t_gamestruc *game);
+void	free_textures(t_texturepack *textures);
 
 //debug
 void	print_type_id(t_texturepack	all_textures);

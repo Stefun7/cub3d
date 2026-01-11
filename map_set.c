@@ -6,7 +6,7 @@
 /*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 20:59:53 by scesar            #+#    #+#             */
-/*   Updated: 2026/01/11 17:39:33 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/11 18:01:48 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	init_map(t_map *map, char *file, t_gamestruc *game)
 	}
 	close(fd);
 	if (map->cols == 0)
-		exit_game("Empty map !", NULL);
+		exit_game("Empty map !", game);
 	map->grid = ft_calloc((map->rows + 1), sizeof(char *));
 	if (!map->grid)
 		exit_game("Malloc error", game);

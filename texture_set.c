@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   texture_set.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 02:15:30 by stephen           #+#    #+#             */
-/*   Updated: 2026/01/10 20:46:34 by scesar           ###   ########.fr       */
+/*   Updated: 2026/01/11 17:57:43 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	set_type_id(t_texturepack	*t, char *line)
+int	set_type_id(t_texturepack	*t, char *line, t_gamestruc *game)
 {
 	char	*trim;
 
@@ -25,13 +25,13 @@ int	set_type_id(t_texturepack	*t, char *line)
 	if (*trim == '\n' || *trim == '\0')
 		return (0);
 	if (ft_strncmp(trim, "NO", 2) == 0)
-		t->no->path = get_path_texture(trim + 2);
+		t->no->path = get_path_texture(trim + 2, game);
 	else if (ft_strncmp(trim, "SO", 2) == 0)
-		t->so->path = get_path_texture(trim + 2);
+		t->so->path = get_path_texture(trim + 2, game);
 	else if (ft_strncmp(trim, "WE", 2) == 0)
-		t->we->path = get_path_texture(trim + 2);
+		t->we->path = get_path_texture(trim + 2, game);
 	else if (ft_strncmp(trim, "EA", 2) == 0)
-		t->ea->path = get_path_texture(trim + 2);
+		t->ea->path = get_path_texture(trim + 2, game);
 	else if (*trim == 'F')
 		set_color(t->f_rgb, trim + 1);
 	else if (*trim == 'C')
@@ -69,6 +69,10 @@ void	c_init_texture(t_texturepack	*all_textures)
 
 void	init_texture(t_texturepack	*all_textures, t_gamestruc *game)
 {
+	all_textures->no = NULL;
+	all_textures->so = NULL;
+	all_textures->we = NULL;
+	all_textures->ea = NULL;
 	all_textures->no = malloc(sizeof(t_img));
 	all_textures->so = malloc(sizeof(t_img));
 	all_textures->we = malloc(sizeof(t_img));
@@ -86,12 +90,11 @@ void	set_texture(t_gamestruc	*game, t_texturepack	*all_textures,
 	char	*line;
 	int		except;
 
-	init_texture(all_textures, game);
 	fd = open_fd(file, game);
 	line = get_next_line(fd);
 	while (line)
 	{
-		except = set_type_id(all_textures, line);
+		except = set_type_id(all_textures, line, game);
 		free(line);
 		if (except == ALL_SET)
 		{

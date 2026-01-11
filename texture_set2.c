@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   texture_set2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
+/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 05:42:24 by stephen           #+#    #+#             */
-/*   Updated: 2026/01/10 21:12:37 by scesar           ###   ########.fr       */
+/*   Updated: 2026/01/11 17:58:43 by stephen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	*get_path_texture(char *line)
+char	*get_path_texture(char *line, t_gamestruc *game)
 {
 	size_t	index;
 	size_t	end;
@@ -35,7 +35,7 @@ char	*get_path_texture(char *line)
 		return (NULL);
 	path = ft_substr(line, index, end - index);
 	if (!path)
-		return (NULL);
+		exit_game("Malloc Error", game);
 	return (path);
 }
 
