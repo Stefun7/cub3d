@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_set.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 20:59:53 by scesar            #+#    #+#             */
-/*   Updated: 2026/01/12 00:29:45 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/12 12:24:04 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,30 @@ void	init_map(t_map *map, char *file, t_gamestruc *game)
 		exit_game(MALLOC_ERR, game);
 }
 
-char	*extract_line(char *line)
+char	*extract_line(char *line, t_map *map)
 {
 	char	*res;
+	size_t	i;
+	size_t	len;
 
-	if (line[ft_strlen(line) - 1] == '\n')
-		res = ft_substr(line, 0, ft_strlen(line) - 1);
-	else
-		res = ft_substr(line, 0, ft_strlen(line));
+	len = ft_strlen(line);
+	res = malloc(map->cols + 1);
 	if (!res)
-		free(line);
+		return (NULL);
+	i = 0;
+	if (len > 0 && line[len - 1] == '\n')
+		len--;
+	while (i < len)
+	{
+		res[i] = line[i];
+		i++;
+	}
+	while (i < map->cols)
+	{
+		res[i] = ' ';
+		i++;
+	}
+	res[i] = '\0';
 	return (res);
 }
 
@@ -70,11 +84,11 @@ void	set_map(t_map *map, t_gamestruc *game)
 
 	y = 0;
 	line = get_to_map(map, &fd);
-	if (!valid_line(line, &fd))
+	if (!valid_line(line, &fd, 1))
 		exit_game(INVALID_LINE, game);
 	while (line && *line != '\n')
 	{
-		map->grid[y] = extract_line(line);
+		map->grid[y] = extract_line(line, map);
 		if (!map->grid[y])
 		{
 			close(fd);

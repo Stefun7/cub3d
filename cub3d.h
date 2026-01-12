@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:20:26 by stephen           #+#    #+#             */
-/*   Updated: 2026/01/12 00:31:50 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/12 12:24:19 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdbool.h>
+# include <limits.h>
 # include "Libft/inc/libft.h"
 # include "Libft/inc/get_next_line.h"
 # define ALL_SET 11
@@ -27,11 +28,11 @@
 # define EMPTY_MAP "Empty map !"
 # define MALLOC_ERR "Malloc error..."
 # define OPEN_ERR "Something went wrong when opening the map file..."
-# define INVALID_LINE "Invalid Map !\nOnly 1, 0, N, S, W, E and spaces accepted !"
+# define INVALID_LINE "Invalid Map !\nOnly 1, 0, N, S, W, E and ' ' accepted !"
 # define OPEN_MAP "Invalid Map !\nOpen maps are not supported !"
 # define MIN_DIM "Invalid Map !\nAt least 3x3 map required !"
 # define NO_START "Invalid Map !\nNeed a starting position !"
-# define MULTI_START "Invalid Map !\nCan't have more than one starting position !"
+# define MULTI_START "Invalid Map !\nMore than one starting position !"
 # define NO_SURR_W "Invalid Map !\nMap not closed !"
 # define MULTI_ID "Invalid type identifier !\nOnly one per type !"
 
@@ -96,10 +97,10 @@ int		int_in_col(char *line, size_t *index, int *col);
 //map_set
 void	pre_init_map(t_map *map);
 void	init_map(t_map *map, char *file, t_gamestruc *game);
-char	*extract_line(char *line);
+char	*extract_line(char *line, t_map *map);
 void	set_map(t_map *map, t_gamestruc *game);
 
-bool	valid_line(char *line, int *fd);
+bool	valid_line(char *line, int *fd, int to_f);
 void	set_pos(t_map *map, char *line, int y);
 void	check_map(t_map	*map, t_gamestruc	*game);
 int		map_open(t_map *map);
@@ -110,20 +111,22 @@ bool	cross_z_x(t_map *map, size_t i, size_t j);
 bool	cross_z_y(t_map *map, size_t i, size_t j);
 bool	cross_check(t_map *map, size_t i, size_t j, char c);
 
-
 //utils
 void	verif_args(int ac, char **av);
 int		open_fd(char *file, t_gamestruc *game);
 size_t	end_read(char *line, int *fd);
 int		skip_spaces(char *input, size_t *index);
 void	exit_game(char *error_message, t_gamestruc *game);
+
 char	*start_map(char *file, int *fd);
 bool	reach_next_line(char *line, int *fd);
 char	*get_to_map(t_map *map, int *fd);
+long	my_atoi(const char *str);
 
 //free
 void	free_all(t_gamestruc *game);
 void	free_textures(t_texturepack *textures);
+void	free_map(t_map *map);
 
 //debug
 void	print_type_id(t_texturepack	all_textures);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_set2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 05:42:24 by stephen           #+#    #+#             */
-/*   Updated: 2026/01/12 00:32:42 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/12 11:44:30 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,19 +69,36 @@ void	set_color(int rgb[3], char *line)
 		rgb[0] = NONE;
 }
 
+// int	int_in_col(char *line, size_t *index, int *col)
+// {
+// 	size_t	start;
+// 	int		res;
+
+// 	start = *index;
+// 	if (!ft_isdigit(line[*index]))
+// 		return (0);
+// 	while (ft_isdigit(line[*index]))
+// 		(*index)++;
+// 	res = ft_atoi(&line[start]);
+// 	if (res < 0 || res > 255)
+// 		return (0);
+// 	*col = res;
+// 	return (1);
+// }
+
 int	int_in_col(char *line, size_t *index, int *col)
 {
 	size_t	start;
-	int		res;
+	long	res;
 
 	start = *index;
 	if (!ft_isdigit(line[*index]))
 		return (0);
 	while (ft_isdigit(line[*index]))
 		(*index)++;
-	res = ft_atoi(&line[start]);
-	if (res  < 0 || res > 255)
+	res = my_atoi(&line[start]);
+	if (res < 0 || res > 255)
 		return (0);
-	*col = res;
+	*col = (int)res;
 	return (1);
 }

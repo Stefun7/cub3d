@@ -4,7 +4,7 @@ INC = cub3d.h
 
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g -O0
 
 SRCS = data_set.c debug.c free.c main.c map_set.c map_set2.c map_set3.c\
 texture_set.c texture_set2.c utils.c utils2.c

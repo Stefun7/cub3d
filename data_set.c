@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_set.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 19:40:30 by stephen           #+#    #+#             */
-/*   Updated: 2026/01/12 00:29:48 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/12 12:26:41 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,4 @@ void	set_check_data(t_gamestruc	*game, char *av_1)
 	init_map(&game->map, av_1, game);
 	set_map(&game->map, game);
 	check_map(&game->map, game);
-	print_all(game);
 }

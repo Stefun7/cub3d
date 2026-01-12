@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 21:03:02 by scesar            #+#    #+#             */
-/*   Updated: 2026/01/12 00:32:49 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/12 11:42:58 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,32 @@ char	*get_to_map(t_map *map, int *fd)
 		line = get_next_line(*fd);
 	}
 	return (line);
+}
+
+long	my_atoi(const char *str)
+{
+	size_t	i;
+	int		neg;
+	long	res;
+
+	i = 0;
+	neg = 1;
+	res = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || (str[i] == 32))
+		i++;
+	if (str[i] == '-' || str[i] == '+' )
+	{
+		if (str[i] == '-')
+			neg = -1;
+		i++;
+	}
+	while (str[i] >= 48 && str[i] <= 57 && res >= 0)
+	{
+		res = res * 10 + (str[i] - 48);
+		i++;
+	}
+	res *= neg;
+	if (res < INT_MIN || res > INT_MAX || i == 0)
+		res = LONG_MIN;
+	return (res);
 }

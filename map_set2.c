@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map_set2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stephen <stephen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: scesar <scesar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 13:28:57 by scesar            #+#    #+#             */
-/*   Updated: 2026/01/12 00:32:34 by stephen          ###   ########.fr       */
+/*   Updated: 2026/01/12 12:26:22 by scesar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool	valid_line(char *line, int *fd)
+bool	valid_line(char *line, int *fd, int to_f)
 {
 	int	x;
 
@@ -23,7 +23,8 @@ bool	valid_line(char *line, int *fd)
 			&& line[x] != 'N' && line[x] != 'S'
 			&& line[x] != 'E' && line[x] != 'W')
 		{
-			free(line);
+			if (to_f)
+				free(line);
 			if (fd)
 				close(*fd);
 			return (false);
@@ -66,7 +67,7 @@ void	check_map(t_map	*map, t_gamestruc	*game)
 		exit_game(EMPTY_MAP, game);
 	while (map->grid[i])
 	{
-		if (!valid_line(map->grid[i], NULL))
+		if (!valid_line(map->grid[i], NULL, 0))
 			exit_game(INVALID_LINE, game);
 		i++;
 	}
